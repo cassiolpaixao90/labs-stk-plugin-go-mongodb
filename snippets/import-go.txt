@@ -1,0 +1,1 @@
+"{{global_inputs.project_name}}/config/mongodb"

@@ -1,0 +1,51 @@
+schema-version: v2
+kind: plugin
+metadata:
+  name: go-mongodb
+  display-name: go-mongodb
+  description: Describe your plugin explaining its purpose
+  version: 0.0.1
+  picture: plugin.png
+
+spec:
+  type: app
+  compatibility:
+    - golang
+  about: docs/about.md
+  implementation: docs/implementation.md
+  release-notes: docs/release-notes-0.0.1.md
+  requirements: docs/requirements.md
+  single-use: False
+  repository: ""
+  technologies: # Ref: https://docs.stackspot.com/content-creator/studio/yaml-files/plugin-yaml/#technologies
+    - Api
+  stk-projects-only: false
+  hooks:
+    - type: run
+      trigger: after-render
+      working-dir: "app"
+      commands:
+        - go mod tidy
+        - echo adicionando lib de go-mongodb
+
+    - type: edit
+      trigger: before-render
+      path: app/main.go
+      changes:
+        - search:
+            string: "r := gin.Default()"
+            insert-before:
+              snippet: snippets/add-code.txt
+            when:
+              not-exists: ""
+
+    - type: edit
+      trigger: before-render
+      path: app/main.go
+      changes:
+        - search:
+            string: "import ("
+            insert-after:
+              snippet: snippets/import-go.txt
+            when:
+              not-exists: ""

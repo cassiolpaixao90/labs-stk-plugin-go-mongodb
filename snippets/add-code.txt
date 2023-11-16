@@ -1,0 +1,8 @@
+
+    mongodb.NewMongoConnection(&mongodb.MongoDBConfig{
+		URI: "localhost:27017",
+		Logger: l
+	})
+
+
+
